@@ -3,10 +3,16 @@ import "../css/styles.css";
 import Home from "./pages/Home";
 import { useEffect, useState } from "react";
 import Tienda from "./pages/Tienda";
+import Login from "./pages/Login";
+import Contactanos from "./pages/Contactanos";
+import Carrito from "./pages/Carrito";
 
 const rutas = [
   { path: "/", componente: Home },
-  { path: "/tienda", componente: Tienda }
+  { path: "/tienda", componente: Tienda },
+  { path: "/carrito", componente: Carrito },
+  { path: "/contactanos", componente: Contactanos },
+  { path: "/login", componente: Login },
 ];
 
 export default function App() {
