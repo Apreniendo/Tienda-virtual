@@ -1,8 +1,18 @@
 export default function Contactanos() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const asunto = document.getElementById("asunto").value;
+    const message = document.getElementById("message").value;
+    const alertMessage = `Nombre: ${name}\nCorreo Electrónico: ${email}\nAsunto: ${asunto}\nMensaje: ${message}`;
+    alert(alertMessage);
+  }
+
   return (
     <>
       <h2>Contactanos</h2>
-      <form id="contact-form">
+      <form id="contact-form" onSubmit={handleSubmit}>
         <div>
           <label for="name">Nombre:</label>
           <input type="text" id="name" name="name" required />
