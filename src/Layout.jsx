@@ -7,8 +7,8 @@ export default function Layout({ children, setRutaActual }) {
         <h1>Electrotienda</h1>
         <nav>
           <ul id="links">
-            <li class="active">
-              <Link to={"/"}>Inicio</Link>
+            <li class="">
+              <Link to={"/"} setRutaActual={setRutaActual}>Inicio</Link>
             </li>
             <li>
               <Link to={"/tienda"} setRutaActual={setRutaActual}>
