@@ -8,7 +8,7 @@ body {
   background-image: url(../img/bg.jpg);
 }
 
-body {
+#root {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
