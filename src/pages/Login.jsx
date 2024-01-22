@@ -1,6 +1,7 @@
 import { useState } from "react";
+import callAPI from "../../scripts/api";
 
-export default function Login() {
+export default function Login({ onLogin }) {
   const [estaLogueando, setEstaLogueando] = useState(true);
 
   function alternarVista() {
@@ -8,9 +9,30 @@ export default function Login() {
   }
 
   if (estaLogueando) {
-    function handleSubmit(event) {
+    async function handleSubmit(event) {
       event.preventDefault();
-      // Aquí puedes agregar la lógica para procesar el inicio de sesión
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      const usuario = {
+        username: username,
+        password: password,
+      };
+
+      try {
+        const response = await callAPI("./login.php", usuario);
+        if (response.ok) {
+          console.log({ response });
+          localStorage.setItem("user", response.result);
+          onLogin();
+        } else {
+          alert(response.result);
+        }
+      } catch (error) {
+        alert("backend no conectado, logueando como usuario de prueba");
+        localStorage.setItem("user", "TEST");
+        onLogin();
+      }
     }
 
     return (
@@ -31,13 +53,7 @@ export default function Login() {
         </form>
         <p>
           no tienes una cuenta?{" "}
-          <button
-            onClick={() =>
-              alternarVista()
-            }
-          >
-            Crea Una
-          </button>
+          <button onClick={() => alternarVista()}>Crea Una</button>
         </p>
         <p>
           Si no hay backend configurado todavía puede acceder a la pagina como
@@ -53,7 +69,7 @@ export default function Login() {
   }
 
   return (
-    <div id="signupForm" >
+    <div id="signupForm">
       <h2>Crea tu cuenta</h2>
       <form id="signup-form" onSubmit={handleSubmit}>
         <div>
@@ -79,13 +95,7 @@ export default function Login() {
       </form>
       <p>
         Ya tienes una cuenta?{" "}
-        <button
-          onClick={() =>
-            alternarVista()
-          }
-        >
-          Inicia sesión
-        </button>
+        <button onClick={() => alternarVista()}>Inicia sesión</button>
       </p>
     </div>
   );
