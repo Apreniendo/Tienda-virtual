@@ -1,4 +1,30 @@
-export default function ItemCarrito({ item, quantity }) {
+export default function ItemCarrito({ item, quantity, onUpdate }) {
+  const id = item.id
+  function increaseQuantity() {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    cart[id]++;
+    localStorage.setItem("cart", JSON.stringify(cart));
+    onUpdate(cart)
+  }
+
+  function decreaseQuantity() {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart[id] > 1) {
+      cart[id]--;
+    } else {
+      delete cart[id];
+    }
+    localStorage.setItem("cart", JSON.stringify(cart));
+    onUpdate(cart)
+  }
+
+  function removeFromCart() {
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    delete cart[id];
+    localStorage.setItem("cart", JSON.stringify(cart));
+    onUpdate(cart);
+  }
+
   return (
     <div className="cart-item" key={item.id}>
       <img src={item.image} alt={item.title} />
