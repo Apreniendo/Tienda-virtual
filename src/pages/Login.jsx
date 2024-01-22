@@ -3,8 +3,10 @@ import callAPI from "../../scripts/api";
 
 export default function Login({ onLogin }) {
   const [estaLogueando, setEstaLogueando] = useState(true);
+  const [error, setError] = useState("");
 
   function alternarVista() {
+    setError('')
     setEstaLogueando(!estaLogueando);
   }
 
@@ -20,13 +22,13 @@ export default function Login({ onLogin }) {
       };
 
       try {
-        const response = await callAPI("./login.php", usuario);
+        const response = await callAPI("login.php", usuario);
+        console.log({ response });
         if (response.ok) {
-          console.log({ response });
           localStorage.setItem("user", response.result);
           onLogin();
         } else {
-          alert(response.result);
+          setError(response.error);
         }
       } catch (error) {
         alert("backend no conectado, logueando como usuario de prueba");
@@ -49,6 +51,9 @@ export default function Login({ onLogin }) {
           </div>
           <div>
             <button type="submit">Login</button>
+          </div>
+          <div className="error">
+            <p>{error}</p>
           </div>
         </form>
         <p>
@@ -73,7 +78,7 @@ export default function Login({ onLogin }) {
       username,
       password,
       passwordConfirm,
-      email
+      email,
     };
 
     if (password !== passwordConfirm) {
@@ -86,13 +91,13 @@ export default function Login({ onLogin }) {
       console.log({ response });
 
       if (!response.ok) {
-        alert("Error al crear la cuenta");
+        setError(response.error);
       } else {
         alert("Cuenta creada por favor inicie sesión");
         setEstaLogueando(true);
       }
     } catch (error) {
-      alert("Error al crear la cuenta: " + error.message);
+      setError("Error al crear la cuenta: " + error.message);
     }
   }
 
@@ -132,6 +137,9 @@ export default function Login({ onLogin }) {
         </div>
         <div>
           <button type="submit">Sign Up</button>
+        </div>
+        <div className="error">
+          <p>{error}</p>
         </div>
         <ul>
           <li>
