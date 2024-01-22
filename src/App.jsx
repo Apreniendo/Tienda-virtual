@@ -18,6 +18,7 @@ const rutasPrincipales = [
 const rustasSecundarias = [{ path: "/login", componente: Login }];
 
 export default function App() {
+  const [user, setUser] = useState(localStorage.getItem("user"));
   const [rutaActual, setRutaActual] = useState("/");
 
   function handleUrlChange() {
@@ -34,13 +35,21 @@ export default function App() {
 
   const ruta = rutasPrincipales.find((ruta) => ruta.path === rutaActual);
 
+  if (!user) {
+    return (
+      <main className="container" id="login-page">
+        <Login />
+      </main>
+    );
+  }
+
   return (
     <Layout
       setRutaActual={setRutaActual}
       rutasPrincipales={
         <ul id="links">
           {rutasPrincipales.map((ruta) => (
-            <li className={ruta.path === rutaActual && 'active'}>
+            <li className={ruta.path === rutaActual && "active"}>
               <Link to={ruta.path} setRutaActual={setRutaActual}>
                 {ruta.label}
               </Link>
