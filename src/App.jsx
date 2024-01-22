@@ -6,14 +6,16 @@ import Tienda from "./pages/Tienda";
 import Login from "./pages/Login";
 import Contactanos from "./pages/Contactanos";
 import Carrito from "./pages/Carrito";
+import Link from "./components/Link";
 
-const rutas = [
-  { path: "/", componente: Home },
-  { path: "/tienda", componente: Tienda },
-  { path: "/carrito", componente: Carrito },
-  { path: "/contactanos", componente: Contactanos },
-  { path: "/login", componente: Login },
+const rutasPrincipales = [
+  { path: "/", componente: Home, label: "Inicio" },
+  { path: "/tienda", componente: Tienda, label: "Tienda" },
+  { path: "/carrito", componente: Carrito, label: "Carrito" },
+  { path: "/contactanos", componente: Contactanos, label: "Contactanos" },
 ];
+
+const rustasSecundarias = [{ path: "/login", componente: Login }];
 
 export default function App() {
   const [rutaActual, setRutaActual] = useState("/");
@@ -30,10 +32,23 @@ export default function App() {
     };
   });
 
-  const ruta = rutas.find((ruta) => ruta.path === rutaActual);
+  const ruta = rutasPrincipales.find((ruta) => ruta.path === rutaActual);
 
   return (
-    <Layout setRutaActual={setRutaActual} >
+    <Layout
+      setRutaActual={setRutaActual}
+      rutasPrincipales={
+        <ul id="links">
+          {rutasPrincipales.map((ruta) => (
+            <li className={ruta.path === rutaActual && 'active'}>
+              <Link to={ruta.path} setRutaActual={setRutaActual}>
+                {ruta.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      }
+    >
       <ruta.componente />
     </Layout>
   );
