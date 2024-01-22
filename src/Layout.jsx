@@ -1,31 +1,10 @@
-import Link from "./components/Link";
-
-export default function Layout({ children, setRutaActual }) {
+export default function Layout({ children, rutasPrincipales }) {
   return (
     <>
       <header>
         <h1>Electrotienda</h1>
         <nav>
-          <ul id="links">
-            <li class="">
-              <Link to={"/"} setRutaActual={setRutaActual}>Inicio</Link>
-            </li>
-            <li>
-              <Link to={"/tienda"} setRutaActual={setRutaActual}>
-                Tienda
-              </Link>
-            </li>
-            <li>
-              <Link to={"/carrito"} setRutaActual={setRutaActual}>
-                Carrito
-              </Link>
-            </li>
-            <li>
-              <Link to={"/contactanos"} setRutaActual={setRutaActual}>
-                Contactanos
-              </Link>
-            </li>
-          </ul>
+          {rutasPrincipales}
           <div className="dropdown">
             <button className="dropbtn">
               <span id="user"></span>
