@@ -35,17 +35,28 @@ export default function App() {
 
   const ruta = rutasPrincipales.find((ruta) => ruta.path === rutaActual);
 
+  function onLogin() {
+    setUser(localStorage.getItem("user"));
+    setRutaActual("/");
+  }
+
+  function onLogout() {
+    setUser(null);
+    localStorage.clear();
+    setRutaActual("/");
+  }
+
   if (!user) {
     return (
       <main className="container" id="login-page">
-        <Login />
+        <Login onLogin={onLogin} />
       </main>
     );
   }
 
   return (
     <Layout
-      setRutaActual={setRutaActual}
+      onLogout={onLogout}
       rutasPrincipales={
         <ul id="links">
           {rutasPrincipales.map((ruta) => (

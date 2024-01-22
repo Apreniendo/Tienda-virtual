@@ -1,4 +1,8 @@
-export default function Layout({ children, rutasPrincipales }) {
+import { useState } from "react";
+import Link from "./components/Link";
+
+export default function Layout({ children, rutasPrincipales, onLogout }) {
+  const [user, setUser] = useState(localStorage.getItem('user'))
   return (
     <>
       <header>
@@ -7,13 +11,19 @@ export default function Layout({ children, rutasPrincipales }) {
           {rutasPrincipales}
           <div className="dropdown">
             <button className="dropbtn">
-              <span id="user"></span>
+              <span id="user">{user}</span>
               <i className="fa fa-caret-down"></i>
             </button>
             <div className="dropdown-content">
-              <a href="#" id="user-desconectarse">
+              <Link
+                to="/"
+                id="user-desconectarse"
+                setRutaActual={() => {
+                  onLogout();
+                }}
+              >
                 Desconectarse
-              </a>
+              </Link>
             </div>
           </div>
           <div className="menu-icon" id="menu-icon">
