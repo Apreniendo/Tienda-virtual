@@ -1,5 +1,5 @@
 import Layout from "./Layout";
-import "../css/styles.css";
+import "./css/styles.css";
 import Home from "./pages/Home";
 import { useEffect, useState } from "react";
 import Tienda from "./pages/Tienda";
