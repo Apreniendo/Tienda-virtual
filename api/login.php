@@ -1,5 +1,8 @@
 <?php
 header("Access-Control-Allow-Origin: *");
+include "./conexion_bd.php";
+
+$bd = getConexion();
 
 $data = json_decode(file_get_contents('php://input'), true);
 

@@ -66,12 +66,14 @@ export default function Login({ onLogin }) {
   async function handleSubmit(event) {
     event.preventDefault();
     const username = document.getElementById("newUsername").value;
+    const email = document.getElementById("newEmail").value;
     const password = document.getElementById("newPassword").value;
     const passwordConfirm = document.getElementById("newPasswordConfirm").value;
     const datos = {
       username,
       password,
       passwordConfirm,
+      email
     };
 
     if (password !== passwordConfirm) {
@@ -101,6 +103,10 @@ export default function Login({ onLogin }) {
         <div>
           <label htmlFor="newUsername">Username</label>
           <input type="text" id="newUsername" name="newUsername" required />
+        </div>
+        <div>
+          <label htmlFor="newEmail">Email</label>
+          <input type="email" id="newEmail" name="newEmail" required />
         </div>
         <div>
           <label htmlFor="newPassword">Password</label>

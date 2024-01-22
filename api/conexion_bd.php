@@ -1,6 +1,6 @@
 <?php
 
-function getConexion()
+function getConexion(): PDO
 {
   try {
     $conn = new PDO('mysql:host=localhost', "root", "");
@@ -36,6 +36,7 @@ function getConexion()
   )";
     $conn->exec($sql);
 
+    return $conn;
   } catch (PDOException $e) {
     echo $sql . "<br>" . $e->getMessage();
   }
