@@ -1,4 +1,4 @@
-const PRODUCTOS = [
+export const PRODUCTOS = [
   {
     id: 20,
     title: "Sleek Comfort-Fit Over-Ear Headphones",
