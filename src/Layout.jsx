@@ -1,4 +1,6 @@
-export default function Layout({ children }) {
+import Link from "./components/Link";
+
+export default function Layout({ children, setRutaActual }) {
   return (
     <>
       <header>
@@ -6,35 +8,41 @@ export default function Layout({ children }) {
         <nav>
           <ul id="links">
             <li class="active">
-              <a href="index.html">Inicio</a>
+              <Link to={"/"}>Inicio</Link>
             </li>
             <li>
-              <a href="./pages/tienda.html">Tienda</a>
+              <Link to={"/tienda"} setRutaActual={setRutaActual}>
+                Tienda
+              </Link>
             </li>
             <li>
-              <a href="./pages/carrito.html">Carrito</a>
+              <Link to={"/carrito"} setRutaActual={setRutaActual}>
+                Carrito
+              </Link>
             </li>
             <li>
-              <a href="./pages/contactanos.html">Contactanos</a>
+              <Link to={"/contactanos"} setRutaActual={setRutaActual}>
+                Contactanos
+              </Link>
             </li>
           </ul>
-          <div class="dropdown">
-            <button class="dropbtn">
+          <div className="dropdown">
+            <button className="dropbtn">
               <span id="user"></span>
-              <i class="fa fa-caret-down"></i>
+              <i className="fa fa-caret-down"></i>
             </button>
-            <div class="dropdown-content">
+            <div className="dropdown-content">
               <a href="#" id="user-desconectarse">
                 Desconectarse
               </a>
             </div>
           </div>
-          <div class="menu-icon" id="menu-icon">
+          <div className="menu-icon" id="menu-icon">
             &#9776;
           </div>
         </nav>
       </header>
-      <main class="container">{children}</main>
+      <main className="container">{children}</main>
       <footer>
         <p>Derechos de autor &copy; 2024 Electrotienda</p>
       </footer>
