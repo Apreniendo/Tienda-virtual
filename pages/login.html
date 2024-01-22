@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hola</title>
+  <script src="../scripts/api.js"></script>
+  <script src="../scripts/carrito.js"></script>
+  <script src="../scripts/user.js"></script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+  <main class="container" id="login-page">
+    <div id="loginForm">
+      <h2>Inicia Sesión</h2>
+      <form id="login-form">
+        <div>
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div>
+          <button type="submit">Login</button>
+        </div>
+      </form>
+      <p>no tienes una cuenta? <button onclick="showSignup()">Crea Una</button></p>
+      <p>Si no hay backend configurado todavía puede acceder a la pagina como un usuario de prueba</p>
+    </div>
+
+    <div id="signupForm" style="display: none;">
+      <h2>Crea tu cuenta</h2>
+      <form id="signup-form">
+        <div>
+          <label for="newUsername">Username</label>
+          <input type="text" id="newUsername" name="newUsername" required>
+        </div>
+        <div>
+          <label for="newPassword">Password</label>
+          <input type="password" id="newPassword" name="newPassword" required>
+        </div>
+        <div>
+          <label for="newPassword">Confirm Password</label>
+          <input type="password" id="newPasswordConfirm" name="newPasswordConfirm" required>
+        </div>
+        <div>
+          <button type="submit">Sign Up</button>
+        </div>
+      </form>
+      <p>Ya tienes una cuenta? <button onclick="showLogin()">Inicia sesión</button></p>
+    </div>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+  <script type="module" src="../scripts/loginPage.js"></script>
+</body>
+
+<script>
+  function showLogin() {
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('signupForm').style.display = 'none';
+  }
+
+  function showSignup() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('signupForm').style.display = 'block';
+  }
+</script>
+
+</html>

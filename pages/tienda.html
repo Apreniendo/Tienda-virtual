@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electrotienda</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/tienda.css">
+  <script src="../scripts/usuarioNoLogueado.js"></script>
+  <script src="../scripts/productos.js"></script>
+</head>
+
+<body>
+  <header>
+    <h1>Electrotienda</h1>
+    <nav>
+      <ul id="links">
+        <li><a href="../index.html">Inicio</a></li>
+        <li class="active"><a href="./tienda.html">Tienda</a></li>
+        <li><a href="./carrito.html">Carrito</a></li>
+        <li><a href="./contactanos.html">Contactanos</a></li>
+      </ul>
+      <div class="dropdown">
+        <button class="dropbtn"><span id="user"></span>
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <a href="#" id="user-desconectarse">Desconectarse</a>
+        </div>
+      </div>
+      <div class="menu-icon" id="menu-icon">&#9776;</div>
+    </nav>
+  </header>
+  <main class="container">
+    <h2>Productos</h2>
+    <div id="products-container" class="items-container">
+
+    </div>
+  </main>
+  <footer>
+    <p>Derechos de autor &copy; 2024 Electrotienda</p>
+  </footer>
+
+  <script src="../main.js"></script>
+</body>
+
+<script>
+  const productsContainer = document.querySelector('#products-container');
+  PRODUCTOS.forEach(product => {
+    const productCard = document.createElement('div')
+    productCard.classList.add('product-card')
+
+    const image = document.createElement('img')
+    image.src = product.image
+    productCard.appendChild(image)
+
+    const productDetails = document.createElement('div')
+    productDetails.classList.add('product-details')
+
+    const title = document.createElement('h2')
+    title.textContent = product.title
+    productDetails.appendChild(title)
+
+    const price = document.createElement('p')
+    price.textContent = "Precio: " + product.price + " $";
+    price.classList.add('price')
+    productDetails.appendChild(price)
+
+    const description = document.createElement('p')
+    description.textContent = product.description
+    description.classList.add('description')
+    productDetails.appendChild(description)
+
+    const button = document.createElement('button')
+    button.textContent = "Agregar al carrito"
+    button.addEventListener('click', () => {
+      addToCart(product.id)
+    })
+    productDetails.appendChild(button)
+
+    productCard.appendChild(productDetails)
+    productsContainer.appendChild(productCard)
+  });
+
+  function addToCart(id) {
+    let cart = {};
+    if (localStorage.getItem('cart')) {
+      cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    if (cart[id]) {
+      cart[id]++;
+    } else {
+      cart[id] = 1;
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+</script>
+
+<style>
+  .items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+</style>
+
+</html>
