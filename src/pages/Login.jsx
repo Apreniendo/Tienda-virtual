@@ -63,9 +63,35 @@ export default function Login({ onLogin }) {
     );
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
-    // Aquí puedes agregar la lógica para procesar el registro
+    const username = document.getElementById("newUsername").value;
+    const password = document.getElementById("newPassword").value;
+    const passwordConfirm = document.getElementById("newPasswordConfirm").value;
+    const datos = {
+      username,
+      password,
+      passwordConfirm,
+    };
+
+    if (password !== passwordConfirm) {
+      alert("Las contraseñas no coinciden.");
+      return;
+    }
+
+    try {
+      const response = await callAPI("signup.php", datos);
+      console.log({ response });
+
+      if (!response.ok) {
+        alert("Error al crear la cuenta");
+      } else {
+        alert("Cuenta creada por favor inicie sesión");
+        setEstaLogueando(true);
+      }
+    } catch (error) {
+      alert("Error al crear la cuenta: " + error.message);
+    }
   }
 
   return (
@@ -78,7 +104,14 @@ export default function Login({ onLogin }) {
         </div>
         <div>
           <label htmlFor="newPassword">Password</label>
-          <input type="password" id="newPassword" name="newPassword" required />
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            minLength={8}
+            maxLength={12}
+            required
+          />
         </div>
         <div>
           <label htmlFor="newPassword">Confirm Password</label>
@@ -86,12 +119,25 @@ export default function Login({ onLogin }) {
             type="password"
             id="newPasswordConfirm"
             name="newPasswordConfirm"
+            minLength={8}
+            maxLength={12}
             required
           />
         </div>
         <div>
           <button type="submit">Sign Up</button>
         </div>
+        <ul>
+          <li>
+            The password must contain at least one lowercase letter, one
+            uppercase letter, one digit, and one special character from the set
+            !@#$%^&*_=+-
+          </li>
+          <li>
+            The total length of the password must be between 8 and 12
+            characters.
+          </li>
+        </ul>
       </form>
       <p>
         Ya tienes una cuenta?{" "}
