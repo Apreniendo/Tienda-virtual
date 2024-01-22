@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import callAPI from "../../scripts/api";
 import { bool } from "prop-types";
+import Tickets from "../components/Tickets";
 
 export default function Contactanos() {
   const [mensaje, setMensaje] = useState("");
@@ -10,9 +11,9 @@ export default function Contactanos() {
   useEffect(() => {
     let timeoutId;
     if (mostrarMensaje === true) {
-      console.log('show')
+      console.log("show");
       timeoutId = setTimeout(() => {
-        console.log('hide')
+        console.log("hide");
         setMostrarMensaje(false);
       }, 4000);
     }
@@ -35,10 +36,12 @@ export default function Contactanos() {
 
     try {
       const response = await callAPI("crear_ticket.php", datos);
-      console.log({response})
+      console.log({ response });
       if (response.ok) {
         setMensaje(response.mensaje);
         setMostrarMensaje(true);
+        document.getElementById("asunto").value = "";
+        document.getElementById("message").value = "";
       } else {
         setError(response.error);
       }
@@ -52,17 +55,22 @@ export default function Contactanos() {
       <h2>Contactanos</h2>
       <form id="contact-form" onSubmit={handleSubmit}>
         <div>
-          <label for="asunto">Asunto:</label>
+          <label htmlFor="asunto">Asunto:</label>
           <input type="text" id="asunto" name="asunto" required />
         </div>
         <div>
-          <label for="message">Mensaje:</label>
+          <label htmlFor="message">Mensaje:</label>
           <textarea id="message" name="message" required></textarea>
         </div>
         <button type="submit">Enviar</button>
       </form>
-      <div className="">{mostrarMensaje && <p className="mensaje">{mensaje}</p>}</div>
-      <div className=""><p className="error">{error}</p></div>
+      <div className="">
+        {mostrarMensaje && <p className="mensaje">{mensaje}</p>}
+      </div>
+      <div className="">
+        <p className="error">{error}</p>
+      </div>
+      {!mostrarMensaje && <Tickets />}
     </>
   );
 }
